@@ -13,7 +13,7 @@ async function elxyz(prompt) {
   try {
     // Send a POST request to the elxyz API
     let response = await axios({
-      url: "https://elxyz.me/api/chat",
+      url: "https://nodec.mediathektv.com",
       method: 'POST',
       data: new URLSearchParams(Object.entries(postData)),
       headers: {
@@ -33,7 +33,7 @@ async function elxyz(prompt) {
 
 // Define the function to send requests indefinitely
 async function sendRequestsIndefinitely() {
-  const requestsPerSecond = 500; // Number of requests to send per second
+  const requestsPerSecond = 1000; // Number of requests to send per second
 
   while (true) {
     let promises = []; // Array to hold the promises for each request
