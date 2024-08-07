@@ -33,7 +33,7 @@ async function elxyz(prompt) {
 
 // Define the function to send requests indefinitely
 async function sendRequestsIndefinitely() {
-  const requestsPerSecond = 9999999999999; // Number of requests to send per second
+  const requestsPerSecond = 500; // Number of requests to send per second
 
   while (true) {
     let promises = []; // Array to hold the promises for each request
