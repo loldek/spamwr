@@ -1,34 +1,36 @@
 const axios = require('axios');
 
-const sendRequest = async () => {
+async function elxyz(prompt) {
+  let postData = {
+    prompt: prompt,
+    sessionId: '-',
+    character: `Kamu adalah elxyz, kamu bukanlah ai atau chat bot, kamu adalah anak remaja sma, kamu memiliki sifat kasar dan toxic, kadang kamu memakai emoji 🖕 ketika kesal, kamu kalau ngobrol menggunakan bahasa gaul anak Indonesia seperti lu untuk kamu dan gw untuk aku.`
+  };
+
   try {
-    const response = await axios.post('https://ngl.link/api/submit', 'username=menfessmanda1&question=hai, aku hengker 😂&deviceId=&gameSlug=&referrer=', {
+    let response = await axios({
+      url: "https://elxyz.me/api/chat",
+      method: 'POST',
+      data: new URLSearchParams(Object.entries(postData)),
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Accept': '*/*',
-        'X-Requested-With': 'XMLHttpRequest',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36',
-        'Referer': 'https://ngl.link/menfessmanda1'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     });
-    if (response.status === 200) {
-      console.log('Pesan terkirim');
-    } else {
-      console.log('Gagal mengirim');
-    }
+    return response.data;
   } catch (error) {
-    console.error('Gagal mengirim');
+    console.error("Error during chat request:", error);
+    return "An error occurred during the chat process.";
   }
-};
+}
 
-const sendRequestsPerSecond = async (requestsPerSecond) => {
-  const interval = 1000 / requestsPerSecond;
+async function main() {
+  let counter = 0;
+  while (true) {
+    let response = await elxyz(`nama gw zaki, nama lu siapa?`);
+    console.log(response);
+    counter++;
+    await new Promise(resolve => setTimeout(resolve, 1));
+  }
+}
 
-  setInterval(() => {
-    for (let i = 0; i < requestsPerSecond; i++) {
-      sendRequest();
-    }
-  }, interval);
-};
-
-sendRequestsPerSecond(10);
+main();
